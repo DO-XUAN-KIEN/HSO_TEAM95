@@ -684,7 +684,7 @@ public class TextFromClient {
                     Service.send_notice_box(conn, "Dữ liệu nhập không phải số!!");
                     return;
                 }
-                int quant = Integer.parseInt(value);
+                long quant = Integer.parseInt(value);
                 if (quant > 32_000 || quant <= 0) {
                     Service.send_notice_box(conn, "Số lượng không hợp lệ!");
                     return;
@@ -698,13 +698,13 @@ public class TextFromClient {
                     Service.send_notice_box(conn, "Số lượng trong hành trang không đủ!");
                     return;
                 }
-                int vang_required = GameSrc.get_vang_hopngoc(conn.p.id_hop_ngoc) * quant;
+                long vang_required = GameSrc.get_vang_hopngoc(conn.p.id_hop_ngoc) * quant;
                 if (conn.p.get_vang() < vang_required) {
                     Service.send_notice_box(conn, "Không đủ " + vang_required + " vàng");
                     return;
                 }
                 conn.p.update_vang(-vang_required, "Trừ %s vàng hợp ngọc");
-                conn.p.item.remove(7, conn.p.id_hop_ngoc, (quant * 5));
+                conn.p.item.remove(7, conn.p.id_hop_ngoc, (int) (quant * 5));
                 Item47 itbag = new Item47();
                 itbag.id = (short) (conn.p.id_hop_ngoc + 1);
                 itbag.quantity = (short) quant;
@@ -730,7 +730,7 @@ public class TextFromClient {
                     Service.send_notice_box(conn, "Dữ liệu nhập không phải số!!");
                     return;
                 }
-                int quant = Integer.parseInt(value);
+                long quant = Integer.parseInt(value);
                 if (quant > 32_000 || quant <= 0) {
                     Service.send_notice_box(conn, "Số lượng không hợp lệ!");
                     return;
@@ -740,8 +740,8 @@ public class TextFromClient {
                     Service.send_notice_box(conn, "Số lượng trong hành trang không đủ!");
                     return;
                 }
-                int vang_required
-                        = (int) (((long) quant) * (GameSrc.get_vang_hopngoc(conn.p.id_ngoc_tinh_luyen) / 50_000L) * 1_000_000L);
+                long vang_required
+                        =  (quant * (GameSrc.get_vang_hopngoc(conn.p.id_ngoc_tinh_luyen) / 50_000L) * 1_000_000L);
                 if (conn.p.get_vang() < vang_required) {
                     Service.send_notice_box(conn, "Không đủ " + vang_required + " vàng");
                     return;
@@ -755,7 +755,7 @@ public class TextFromClient {
                 it.id = (short) (conn.p.id_ngoc_tinh_luyen + 30);
                 it.quantity = (short) quant;
                 conn.p.item.add_item_inventory47(7, it);
-                conn.p.item.remove(7, conn.p.id_ngoc_tinh_luyen, quant);
+                conn.p.item.remove(7, conn.p.id_ngoc_tinh_luyen, (int) quant);
                 Service.send_notice_box(conn,
                         "Tinh luyện thành công " + quant + " " + ItemTemplate7.item.get(it.id).getName());
                 conn.p.id_ngoc_tinh_luyen = -1;

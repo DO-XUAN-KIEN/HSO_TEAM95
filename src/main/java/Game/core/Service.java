@@ -1754,7 +1754,7 @@ public class Service {
                     case 4:
                     case 7: {
                         int quantity = conn.p.item.total_item_by_id(type, id);
-                        conn.p.update_vang(quantity * 5L, "Nhận %s vàng từ việc bán item vào shop");
+                        conn.p.update_vang(quantity * 0, "Nhận %s vàng từ việc bán item vào shop");
                         conn.p.item.remove(type, id, quantity);
                         if (type != 3) {
                             Log.gI().add_log(conn.p.name, "Bán item type47 ID : " + id + ", số lượng " + quantity);

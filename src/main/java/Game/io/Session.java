@@ -422,25 +422,25 @@ public class Session implements Runnable {
             return;
         }
         if (pass.equals("1") && user.equals("1")) {
-            noticelogin("Vui lòng truy cập hsomobile.online để đăng ký");
-            return;
-//            user = "knightauto_hsr_" + String.valueOf(System.nanoTime());
-//            pass = "hsr_132";
-//            //
-//            try (Connection connnect = SQL.gI().getConnection(); Statement ps = connnect.createStatement()) {
-//                if (!ps.execute("INSERT INTO `account` (`user`, `pass`, `char`, `status`, `lock`, `coin`, `ip`, `email`, `ac_admin`) VALUES ('" + user
-//                        + "', '" + pass + "', '[]', 1, 0, 0, 0, 0, 0)")) {
-//                    connnect.commit();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                noticelogin("Vui lòng liên hệ admin để tạo tài khoản");
-//                return;
-//            }
-//            this.list_char = new String[3];
-//            for (int i = 0; i < 3; i++) {
-//                this.list_char[i] = "";
-//            }
+//            noticelogin("Vui lòng truy cập hsomobile.online để đăng ký");
+//            return;
+            user = "knightauto_hsr_" + String.valueOf(System.nanoTime());
+            pass = "hsr_132";
+            //
+            try (Connection connnect = SQL.gI().getConnection(); Statement ps = connnect.createStatement()) {
+                if (!ps.execute("INSERT INTO `account` (`user`, `pass`, `char`, `status`, `lock`, `coin`, `ip`, `email`, `ac_admin`) VALUES ('" + user
+                        + "', '" + pass + "', '[]', 1, 0, 0, 0, 0, 0)")) {
+                    connnect.commit();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                noticelogin("Vui lòng liên hệ admin để tạo tài khoản");
+                return;
+            }
+            this.list_char = new String[3];
+            for (int i = 0; i < 3; i++) {
+                this.list_char[i] = "";
+            }
         } else {
             //
             String query = "SELECT * FROM `account` WHERE `user` = '" + user + "' AND `pass` = '" + pass + "' LIMIT 1;";

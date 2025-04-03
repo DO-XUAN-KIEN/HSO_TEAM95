@@ -1473,48 +1473,6 @@ public class MenuController {
         }
     }
 
-    private static void Menu_NauKeo(Session conn, byte index) throws IOException {
-        if (Manager.gI().event == 1) {
-            switch (index) {
-                case 0: {
-                    // Service.send_box_input_text(conn, 11, "Nhập số lượng", new String[] {"Số lượng :"});
-                    if (conn.p.get_ngoc() < 10) {
-                        Service.send_notice_box(conn, "Không đủ 10 ngọc");
-                        return;
-                    }
-                    if (EventManager.eventManager.time <= 30) {
-                        Service.send_notice_box(conn, "Không thể tăng tốc");
-                        return;
-                    }
-                    conn.p.update_ngoc(-10);
-                    EventManager.eventManager.update(1);
-                    Service.send_notice_box(conn, "Tăng tốc thành công");
-                    break;
-                }
-                case 1: {
-                    Service.send_notice_box(conn, "Nguyên liệu cần để nấu kẹo như sau: Đường, Sữa, Bơ, Vani\r\n"
-                            + "- Mỗi ngày server cho nấu kẹo 1 lần vào lúc 17h , thời gian nấu là 2 tiếng.\r\n"
-                            + "- Thời gian đăng ký là từ 19h ngày hôm trước đến 16h30 ngày hôm sau. Phí đăng ký là 5 ngọc\r\n"
-                            + "- Một lần tăng tốc mất 10 ngọc và sẽ giảm được 2 phút nấu\r\n"
-                            + "- Số kẹo tối đa nhận được là 20 kẹo.Tuy nhiên nếu các hiệp sĩ góp càng nhiều thì càng có lợi vì 10 người chơi góp nhiều nguyên liệu nhất sẽ được cộng thêm 20 cái\r\n"
-                            + "+ Số kẹo nhận được sẽ tính theo công thức 1 Kẹo = 1 Đường + 1 Sữa + 1 Bơ+ 1 Vani");
-                    break;
-                }
-                case 2: {
-                    Service.send_notice_box(conn,
-                            "Thông tin:\nĐã góp : " + Noel.get_keo_now(conn.p.name) + "\nThời gian nấu còn lại : "
-                            + ((EventManager.eventManager.time == 0) ? "Không trong thời gian nấu"
-                                    : ("Còn lại " + EventManager.eventManager.time + "p")));
-                    break;
-                }
-                case 3: {
-                    send_menu_select(conn, 120, Noel.get_top_naukeo());
-                    break;
-                }
-            }
-        }
-    }
-
     private static void Menu_Event(Session conn, byte index) throws IOException {
 
     }
@@ -1529,15 +1487,19 @@ public class MenuController {
         if (!conn.p.isOwner) {
             return;
         }
-        if (index == 0) {
-            if (conn.p.diemdanh == 1) {
-                conn.p.diemdanh = 0;
-                int ngoc_ = Util.random(100, 500);
-                int vang_ = Util.random(10000, 50000);
-                conn.p.update_ngoc(ngoc_);
-                conn.p.update_vang(vang_, "Nhận % vàng like vua chiến trường");
-                Npc.chat(conn.p.map, "Cảm ơn " + conn.p.name + " đã like", -49);
+        try {
+            if (index == 0) {
+                if (conn.p.diemdanh == 1) {
+                    conn.p.diemdanh = 0;
+                    int ngoc_ = Util.random(100, 500);
+                    int vang_ = Util.random(10000, 50000);
+                    conn.p.update_ngoc(ngoc_);
+                    conn.p.update_vang(vang_, "Nhận % vàng like vua chiến trường");
+                    Npc.chat(conn.p.map, "Cảm ơn " + conn.p.name + " đã like", -49);
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

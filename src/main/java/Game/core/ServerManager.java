@@ -128,6 +128,7 @@ public class ServerManager implements Runnable {
                     } catch (Exception ee) {
                         ee.printStackTrace();
                     }
+                    Manager.gI().chatKTGWhite("LỆNH ADMIN LÀ: lenhadmin EM NHÉ");
                 }
                 long time_sleep = 1000 - millis;
                 if (time_sleep > 0) {

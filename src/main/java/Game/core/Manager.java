@@ -218,17 +218,17 @@ public class Manager {
                     temp2.start_map();
                 }
             }
-            if (!isServerTest) {
-                try {
-                    TelegramBotsApi tele = new TelegramBotsApi(DefaultBotSession.class);
-                    notifierBot = new BotManager();
-                    tele.registerBot(notifierBot);
-                    notifierBot.runBot();
-                    System.err.println("CREATED BOT");
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            }
+//            if (!isServerTest) {
+//                try {
+//                    TelegramBotsApi tele = new TelegramBotsApi(DefaultBotSession.class);
+//                    notifierBot = new BotManager();
+//                    tele.registerBot(notifierBot);
+//                    notifierBot.runBot();
+//                    System.err.println("CREATED BOT");
+//                } catch (TelegramApiException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         } catch (IOException | SQLException e) {
             e.printStackTrace();
             System.err.println("load database err");
